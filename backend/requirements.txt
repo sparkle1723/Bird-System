@@ -1,0 +1,9 @@
+# Backend API 依赖清单
+# 安装方式: pip3 install -r requirements.txt --ignore-installed
+
+fastapi==0.109.0
+uvicorn==0.27.0
+gunicorn==21.2.0
+sqlalchemy==2.0.25
+pydantic==2.5.3
+python-multipart==0.0.6
