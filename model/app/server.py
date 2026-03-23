@@ -636,13 +636,13 @@ def predict_audio():
         
         print(f"[声纹识别] 识别结果: {cn_name} (置信度: {score_float:.2%})")
         
-        # 2. 根据置信度返回不同结果 (阈值 33.3%)
+        # 2. 根据置信度返回不同结果 (阈值 40%)
         ai_desc = ""
-        if score_float < 0.333:
+        if score_float < 0.4:
             cn_name = "未知"
             ai_desc = "哎呀，雀灵没听出来这是什么鸟呢🤔\n\n建议：\n• 找个安静的环境重新录制\n• 尽量靠近鸟类，录制清晰的叫声\n• 避免风声或其他噪音干扰"
         else:
-            # 置信度 >= 33.3%，调用 AI 给出详细介绍
+            # 置信度 >= 40%，调用 AI 给出详细介绍
             ai_desc = ask_deepseek_about_bird(cn_name)
         
         # 3. 绘制声纹图
@@ -700,12 +700,12 @@ def predict_image():
         cn_name = translate_bird_name(clean_name)
         print(f"[图像识别] 识别结果: {cn_name} (置信度: {score_float:.2%})")
         
-        # 根据置信度返回不同结果 (阈值 33.3%)
-        if score_float < 0.333:
+        # 根据置信度返回不同结果 (阈值 40%)
+        if score_float < 0.4:
             cn_name = "未知"
             ai_desc = "哎呀，雀灵没认出这是什么鸟呢🤔\n\n建议：\n• 拍摄更清晰的鸟类照片\n• 尽量让鸟占据画面主要位置\n• 避免逆光或光线不足"
         else:
-            # 置信度 >= 33.3%，调用 AI 给出详细介绍
+            # 置信度 >= 40%，调用 AI 给出详细介绍
             ai_desc = ask_deepseek_about_bird(cn_name)
         
         return jsonify({

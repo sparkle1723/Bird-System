@@ -14,7 +14,7 @@
       
       <view class="result-header">
         <text v-if="result.name !== '未知'" class="match-score">匹配度: {{ result.score }}%</text>
-        <text v-if="result.confidence === 'low' && result.score < 40" class="low-confidence-tip">⚠️ 置信度较低</text>
+        <text v-if="result.confidence === 'low' && result.score < 50" class="low-confidence-tip">⚠️ 置信度较低</text>
         <text class="tag">雀灵识别</text>
       </view>
       <text class="bird-name">{{ result.name }}</text>

@@ -19,7 +19,7 @@
 
       <view v-else-if="parsedResult.name" class="parsed-content">
         <text class="res-title">识别结果: {{ parsedResult.name }}</text>
-        <text v-if="parsedResult.score >= 0.4" class="res-score">置信度: {{ (parsedResult.score * 100).toFixed(1) }}%</text>
+        <text v-if="parsedResult.score >= 0.5" class="res-score">置信度: {{ (parsedResult.score * 100).toFixed(1) }}%</text>
         <text v-else class="res-score low">置信度较低</text>
         <text class="res-desc">{{ parsedResult.desc }}</text>
 
@@ -45,7 +45,7 @@
 
     <view class="btn-group">
       <text class="tip-text" v-if="isUploading">正在处理上一个请求，请稍候...</text>
-      <text class="tip-text" v-else>{{ isRecording ? '松开结束' : '按住录音 (请保持1秒以上)' }}</text>
+      <text class="tip-text" v-else>{{ isRecording ? '松开结束' : '按住录音 (请保持2秒以上)' }}</text>
       
       <view 
         class="mic-btn" 
