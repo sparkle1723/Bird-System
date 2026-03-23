@@ -63,7 +63,7 @@
       
       <view class="grid-item" @click="goVoice">
         <view class="icon-box purple-bg">🎙️</view>
-        <text>语音记事</text>
+        <text>声纹识别</text>
       </view>
       
       <!-- 第二行：记录管理功能 -->
