@@ -78,12 +78,23 @@ const saveData = async () => {
 
   try {
     // 判断是否有图片需要上传
-    // 图片可能是临时文件路径（以 http:// 或 file:// 开头）或者是 Base64
+    // 图片可能是：
+    // 1. Base64 格式（data:image 开头）- 需要转换
+    // 2. 本地临时文件路径（file://、wxfile://、/storage/ 等）- 直接使用
+    // 3. 网络URL（http://、https://）- 表示图片未更改，不需要上传
     let filePath = null;
+    let isNewImage = false;
     
     if (formData.value.image) {
+      // 网络URL - 图片未更改，不需要上传
+      if (formData.value.image.startsWith('http://') || formData.value.image.startsWith('https://')) {
+        console.log('图片为网络URL，无需重新上传:', formData.value.image);
+        // 编辑模式下，保留原图片URL
+        isNewImage = false;
+      }
       // Base64 格式需要特殊处理
-      if (formData.value.image.startsWith('data:image')) {
+      else if (formData.value.image.startsWith('data:image')) {
+        isNewImage = true;
         // #ifdef APP-PLUS
         try {
           const bitmap = new plus.nativeObj.Bitmap('upload_bitmap');
@@ -111,14 +122,15 @@ const saveData = async () => {
         } catch (e) { console.error('保存临时文件失败:', e); }
         // #endif
       } else {
-        // 临时文件路径直接使用（包括 http、file、wxfile、/storage/ 等）
+        // 本地临时文件路径直接使用（file://、wxfile://、/storage/ 等）
+        isNewImage = true;
         filePath = formData.value.image;
-        console.log('使用已有文件路径:', filePath);
+        console.log('使用本地文件路径:', filePath);
       }
     }
 
-    // 使用 uploadFile 上传到 FastAPI 后端
-    if (filePath) {
+    // 使用 uploadFile 上传到 FastAPI 后端（仅当有新的本地图片时）
+    if (filePath && isNewImage) {
       console.log('使用 uploadFile 上传:', CONFIG.FASTAPI_UPLOAD_URL);
       const uploadFormData = {
         username: user.username,
@@ -151,7 +163,7 @@ const saveData = async () => {
         }
       });
     } else {
-      // 没有图片时，判断是新建还是更新
+      // 没有图片 或 图片未更改（网络URL），判断是新建还是更新
       const isEdit = formData.value._id !== null && formData.value._id !== undefined;
       const url = isEdit 
         ? `${CONFIG.FASTAPI_BASE_URL}/records/${formData.value._id}`
