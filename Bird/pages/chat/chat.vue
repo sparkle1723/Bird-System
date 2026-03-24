@@ -2,7 +2,13 @@
   <view class="container">
     <!-- 顶部标题 -->
     <view class="header">
-      <text class="title">🐦 雀灵 - 鸟类AI助手</text>
+      <view class="header-top">
+        <view class="back-btn" @click="goHome">
+          <text class="back-icon">‹</text>
+        </view>
+        <text class="title">🐦 雀灵 - 鸟类AI助手</text>
+        <view class="placeholder"></view>
+      </view>
       <text class="subtitle">随时问我关于鸟类的任何问题</text>
     </view>
 
@@ -12,14 +18,16 @@
         class="chat-item" 
         :class="msg.role === 'user' ? 'chat-user' : 'chat-ai'">
         
-        <view v-if="msg.role === 'ai'" class="chat-avatar ai-avatar">🐦</view>
+        <image v-if="msg.role === 'ai'" class="chat-avatar ai-avatar" src="/static/logo.png" mode="aspectFill"></image>
         
         <view class="bubble">
           <text v-if="msg.role === 'ai' && msg.isMarkdown" class="markdown-content">{{ msg.content }}</text>
           <text v-else>{{ msg.content }}</text>
         </view>
         
-        <view v-if="msg.role === 'user'" class="chat-avatar user-avatar">👤</view>
+        <view v-if="msg.role === 'user'" class="chat-avatar user-avatar">
+          <uni-icons type="person" size="20" color="#fff"></uni-icons>
+        </view>
       </view>
       
       <!-- 加载中提示 -->
@@ -150,6 +158,13 @@ const scrollToBottom = () => {
     scrollTop.value += 9999;
   });
 };
+
+// 返回主页
+const goHome = () => {
+  uni.switchTab({
+    url: '/pages/index/index'
+  });
+};
 </script>
 
 <style>
@@ -158,6 +173,8 @@ const scrollToBottom = () => {
   background-color: #f5f7fa; 
   display: flex; 
   flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* 头部 */
@@ -166,11 +183,32 @@ const scrollToBottom = () => {
   padding: 40px 20px 20px; 
   text-align: center;
 }
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.back-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: -5px;
+}
+.back-icon {
+  color: #fff;
+  font-size: 36px;
+  font-weight: 200;
+}
+.placeholder {
+  width: 40px;
+}
 .title { 
   color: #fff; 
-  font-size: 20px; 
-  font-weight: bold; 
-  display: block;
+  font-size: 18px; 
+  font-weight: bold;
 }
 .subtitle { 
   color: rgba(255,255,255,0.8); 
@@ -183,13 +221,16 @@ const scrollToBottom = () => {
 .chat-list { 
   flex: 1; 
   padding: 15px; 
-  overflow-y: auto;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .chat-item { 
   display: flex; 
   margin-bottom: 15px; 
   align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
 }
 .chat-user { 
   justify-content: flex-end; 
@@ -199,22 +240,24 @@ const scrollToBottom = () => {
 }
 
 .chat-avatar { 
-  width: 36px; 
-  height: 36px; 
+  width: 40px; 
+  height: 40px; 
   border-radius: 50%; 
   display: flex; 
   align-items: center; 
   justify-content: center; 
-  font-size: 20px; 
+  font-size: 22px; 
   flex-shrink: 0;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 .ai-avatar { 
-  background: linear-gradient(135deg, #667eea, #764ba2); 
   margin-right: 10px; 
+  border: 2px solid #667eea;
+  background-color: #fff;
 }
 .user-avatar { 
-  background: #007AFF; 
-  color: #fff; 
+  background: linear-gradient(135deg, #4facfe, #00f2fe); 
   margin-left: 10px; 
 }
 

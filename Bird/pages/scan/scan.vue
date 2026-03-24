@@ -232,10 +232,6 @@ const saveToStore = () => {
         const data = JSON.parse(res.data);
         if (data.code === 200) {
           uni.showToast({ title: '已同步至云仓库', icon: 'success' });
-          setTimeout(() => {
-            // 保存成功后跳转到个人中心或记录页
-            uni.switchTab({ url: '/pages/profile/profile' });
-          }, 1000);
         } else {
           uni.showToast({ title: data.msg || '保存失败', icon: 'none' });
         }

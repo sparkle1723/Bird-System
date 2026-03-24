@@ -323,9 +323,6 @@ const saveToStore = async () => {
           const data = JSON.parse(res.data);
           if (data.code === 200) {
             uni.showToast({ title: '已同步至云仓库', icon: 'success' });
-            setTimeout(() => {
-              uni.switchTab({ url: '/pages/profile/profile' });
-            }, 1000);
           } else {
             uni.showToast({ title: data.msg || '保存失败', icon: 'none' });
           }
