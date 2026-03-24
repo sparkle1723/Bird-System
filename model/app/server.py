@@ -493,37 +493,51 @@ def translate_bird_name(name):
 
 def generate_spectrogram_base64(audio_path):
     """
-    把声音变成 Base64 图片
+    把声音变成 Base64 图片 - 优化版
     """
     try:
-        # 1. 读取音频 (延长至5秒，捕捉更多特征)
-        y, sr = librosa.load(audio_path, duration=5)
+        # 1. 读取音频 (延长至6秒，捕捉更多特征)
+        y, sr = librosa.load(audio_path, duration=6, sr=22050)
         
-        # 2. 音频预处理 - 降噪和归一化
-        # 归一化音频
+        # 2. 音频预处理 - 降噪
+        # 使用预加重增强高频
+        y = librosa.effects.preemphasis(y)
+        
+        # 3. 语音活动检测 (VAD) - 去除静音段
+        intervals = librosa.effects.split(y, top_db=20)
+        if len(intervals) > 0:
+            y = np.concatenate([y[start:end] for start, end in intervals])
+        
+        # 4. 归一化
         y = librosa.util.normalize(y)
         
-        # 3. 计算梅尔频谱 (增加细节)
-        S = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=256, fmax=8000, hop_length=512)
+        # 5. 计算梅尔频谱 (优化参数)
+        S = librosa.feature.melspectrogram(
+            y=y, sr=sr, 
+            n_mels=128,           # 减少维度，避免过拟合
+            fmax=8000,            # 鸟类叫声主要在8kHz以下
+            hop_length=256,       # 更精细的时间分辨率
+            n_fft=2048            # 更高的频率分辨率
+        )
         S_dB = librosa.power_to_db(S, ref=np.max)
         
-        # 3. 设置画布
-        plt.figure(figsize=(10, 4))
+        # 6. 设置画布
+        plt.figure(figsize=(10, 4), dpi=100)
         
-        # 4. 绘制热力图
+        # 7. 绘制热力图 (使用更适合鸟类叫声的配色)
         librosa.display.specshow(S_dB, sr=sr, x_axis='time', y_axis='mel', 
-                               fmax=8000, cmap='magma')
+                               fmax=8000, cmap='viridis')
         
-        # 5. 美化
-        plt.axis('off')         # 关掉坐标轴
-        plt.tight_layout(pad=0) # 去掉白边
+        # 8. 美化
+        plt.axis('off')
+        plt.tight_layout(pad=0)
         
-        # 6. 保存到内存
+        # 9. 保存到内存
         buffer = io.BytesIO()
         plt.savefig(buffer, format='png', transparent=True, bbox_inches='tight', pad_inches=0)
         buffer.seek(0)
         
-        # 7. 转 Base64
+        # 10. 转 Base64
         img_str = base64.b64encode(buffer.read()).decode('utf-8')
         plt.close()
         
@@ -636,14 +650,20 @@ def predict_audio():
         
         print(f"[声纹识别] 识别结果: {cn_name} (置信度: {score_float:.2%})")
         
-        # 2. 根据置信度返回不同结果 (阈值 40%)
-        ai_desc = ""
+        # 2. 根据置信度返回不同结果
         if score_float < 0.4:
+            # 0-0.4: 不显示匹配度，不返回AI描述，红色置信度低
             cn_name = "未知"
             ai_desc = "哎呀，雀灵没听出来这是什么鸟呢🤔\n\n建议：\n• 找个安静的环境重新录制\n• 尽量靠近鸟类，录制清晰的叫声\n• 避免风声或其他噪音干扰"
-        else:
-            # 置信度 >= 40%，调用 AI 给出详细介绍
+            confidence = 'very_low'
+        elif score_float < 0.6:
+            # 0.4-0.6: 显示匹配度，返回AI描述，橙色置信度较低
             ai_desc = ask_deepseek_about_bird(cn_name)
+            confidence = 'low'
+        else:
+            # 0.6-1: 显示匹配度，返回AI描述
+            ai_desc = ask_deepseek_about_bird(cn_name)
+            confidence = 'high'
         
         # 3. 绘制声纹图
         spectrogram_base64 = generate_spectrogram_base64(save_path)
@@ -658,7 +678,7 @@ def predict_audio():
                 'type': 'audio',
                 'desc': ai_desc,
                 'voiceprint': spectrogram_base64,
-                'confidence': 'high' if score_float > 0.6 else 'low'
+                'confidence': confidence
             }
         })
     except Exception as e:
@@ -669,7 +689,7 @@ def predict_audio():
         if os.path.exists(save_path):
             os.remove(save_path)
 
-# --- 接口 B: 拍照识鸟 ---
+# --- 接口 B: 拍照识鸟 (优化版) ---
 @app.route('/predict_image', methods=['POST'])
 def predict_image():
     if 'file' not in request.files: 
@@ -684,11 +704,37 @@ def predict_image():
     print(f"[图像识别] 正在分析图片: {file.filename}")
     
     try:
+        # 1. 打开图片并优化
         image = Image.open(file.stream).convert('RGB')
+        
+        # 2. 自动对比度增强
+        from PIL import ImageEnhance
+        enhancer = ImageEnhance.Contrast(image)
+        image = enhancer.enhance(1.2)  # 轻微增强对比度
+        
+        # 3. 自动亮度调整
+        enhancer = ImageEnhance.Brightness(image)
+        image = enhancer.enhance(1.1)  # 轻微提亮
+        
+        # 4. 锐化处理
+        enhancer = ImageEnhance.Sharpness(image)
+        image = enhancer.enhance(1.3)  # 锐化边缘
+        
+        # 5. 转换为模型输入
         image_tensor = vision_transform(image).unsqueeze(0)
         
+        # 6. 模型推理 (使用TTA测试时增强)
         with torch.no_grad():
+            # 原始预测
             outputs = vision_model(image_tensor)
+            
+            # 水平翻转增强 (TTA)
+            image_flipped = torch.flip(image_tensor, dims=[3])
+            outputs_flipped = vision_model(image_flipped)
+            
+            # 融合预测结果
+            outputs = (outputs + outputs_flipped) / 2
+            
             probabilities = torch.nn.functional.softmax(outputs[0], dim=0)
             score, index = torch.max(probabilities, 0)
         
@@ -700,13 +746,20 @@ def predict_image():
         cn_name = translate_bird_name(clean_name)
         print(f"[图像识别] 识别结果: {cn_name} (置信度: {score_float:.2%})")
         
-        # 根据置信度返回不同结果 (阈值 40%)
+        # 根据置信度返回不同结果
         if score_float < 0.4:
+            # 0-0.4: 不显示匹配度，保留原失败提示，红色置信度低
             cn_name = "未知"
             ai_desc = "哎呀，雀灵没认出这是什么鸟呢🤔\n\n建议：\n• 拍摄更清晰的鸟类照片\n• 尽量让鸟占据画面主要位置\n• 避免逆光或光线不足"
-        else:
-            # 置信度 >= 40%，调用 AI 给出详细介绍
+            confidence = 'very_low'
+        elif score_float < 0.5:
+            # 0.4-0.5: 显示匹配度，返回AI描述，橙色置信度较低
             ai_desc = ask_deepseek_about_bird(cn_name)
+            confidence = 'low'
+        else:
+            # 0.5-1: 显示匹配度，返回AI描述
+            ai_desc = ask_deepseek_about_bird(cn_name)
+            confidence = 'high'
         
         return jsonify({
             'code': 200, 
@@ -716,7 +769,7 @@ def predict_image():
                 'score': score_float,
                 'type': 'visual',
                 'desc': ai_desc,
-                'confidence': 'high' if score_float > 0.5 else 'low'
+                'confidence': confidence
             }
         })
     except Exception as e:

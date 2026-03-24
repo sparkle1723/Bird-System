@@ -13,12 +13,16 @@
     <view class="result-card" v-if="result.name">
       
       <view class="result-header">
-        <text v-if="result.name !== '未知'" class="match-score">匹配度: {{ result.score }}%</text>
-        <text v-if="result.confidence === 'low' && result.score < 50" class="low-confidence-tip">⚠️ 置信度较低</text>
+        <text v-if="result.confidence === 'very_low'" class="very-low-tip">⚠️ 置信度低</text>
+        <template v-else-if="result.confidence === 'low'">
+          <text class="match-score">匹配度: {{ result.score }}%</text>
+          <text class="low-confidence-tip">⚠️ 置信度较低</text>
+        </template>
+        <text v-else class="match-score">匹配度: {{ result.score }}%</text>
         <text class="tag">雀灵识别</text>
       </view>
       <text class="bird-name">{{ result.name }}</text>
-      <text class="bird-desc">{{ result.desc }}</text>
+      <text v-if="result.desc" class="bird-desc">{{ result.desc }}</text>
       
       <button type="primary" class="save-btn" @click="saveToStore">保存到我的仓库</button>
 
@@ -270,6 +274,7 @@ const scrollToBottom = () => {
 .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
 .match-score { color: #007AFF; font-weight: bold; font-size: 12px; }
 .low-confidence-tip { color: #ff9500; font-weight: bold; font-size: 12px; margin-right: 10px; }
+.very-low-tip { color: #ff3b30; font-weight: bold; font-size: 12px; margin-right: 10px; }
 .tag { background: #e0f2ff; padding: 2px 8px; border-radius: 4px; font-size: 10px; color: #007AFF; }
 .bird-name { font-size: 24px; font-weight: bold; color: #333; display: block; margin-bottom: 5px; }
 .bird-desc { font-size: 13px; color: #666; margin-bottom: 15px; display: block; }

@@ -19,9 +19,13 @@
 
       <view v-else-if="parsedResult.name" class="parsed-content">
         <text class="res-title">识别结果: {{ parsedResult.name }}</text>
-        <text v-if="parsedResult.score >= 0.5" class="res-score">置信度: {{ (parsedResult.score * 100).toFixed(1) }}%</text>
-        <text v-else class="res-score low">置信度较低</text>
-        <text class="res-desc">{{ parsedResult.desc }}</text>
+        <text v-if="parsedResult.confidence === 'very_low'" class="res-score very-low">⚠️ 置信度低</text>
+        <template v-else-if="parsedResult.confidence === 'low'">
+          <text class="res-score">置信度: {{ (parsedResult.score * 100).toFixed(1) }}%</text>
+          <text class="res-score low">⚠️ 置信度较低</text>
+        </template>
+        <text v-else class="res-score">置信度: {{ (parsedResult.score * 100).toFixed(1) }}%</text>
+        <text v-if="parsedResult.desc" class="res-desc">{{ parsedResult.desc }}</text>
 
         <view class="voiceprint-box" v-if="parsedResult.voiceprint">
           <text class="vp-label">—— 声纹可视化 ——</text>
@@ -127,11 +131,13 @@ onMounted(() => {
 const startRecord = () => {
   if (isUploading.value) return; 
   
-  //  彻底改用无损 wav 格式，保留 100% 原始声音细节
+  // 优化录音参数，提高识别准确率
   recorderManager.start({ 
-    format: 'wav',           // 1. 核心：改为无损的 wav 格式
-    sampleRate: 44100,       // 2. 采样率拉高到 44100Hz (CD音质)，完美捕捉鸟叫的高频区
-    numberOfChannels: 1      // 3. 单声道 (AI识别单声道足够了，而且能减小体积)
+    format: 'wav',           // 无损 wav 格式
+    sampleRate: 22050,       // 优化：降低采样率减少噪音，鸟类叫声主要在11kHz以下
+    numberOfChannels: 1,     // 单声道
+    encodeBitRate: 64000,    // 优化：提高比特率保证音质
+    frameSize: 1024          // 优化：设置合适的帧大小
   });
 };
 
@@ -385,6 +391,7 @@ const saveToStore = async () => {
 .res-title { font-size: 24px; font-weight: bold; color: #333; margin-bottom: 5px; }
 .res-score { font-size: 14px; color: #007AFF; margin-bottom: 15px; font-weight: bold; background: #e0f2ff; padding: 2px 8px; border-radius: 4px; }
 .res-score.low { color: #ff9500; background: #fff3e0; }
+.res-score.very-low { color: #ff3b30; background: #ffe5e3; }
 .res-desc { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 15px; }
 
 .voiceprint-box { width: 100%; margin-top: 15px; margin-bottom: 5px; display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.5s ease; }
