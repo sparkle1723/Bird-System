@@ -139,7 +139,28 @@ def get_records(username: str = None, db: Session = Depends(database.get_db)):
 
 
 # ==========================================
-# 7. 删除记录接口
+# 7. 更新记录接口
+# ==========================================
+@app.put("/records/{record_id}")
+def update_record(
+    record_id: int,
+    record: RecordCreate,
+    db: Session = Depends(database.get_db)
+):
+    db_record = db.query(models.Record).filter(models.Record.id == record_id).first()
+    if not db_record:
+        raise HTTPException(status_code=404, detail="记录不存在")
+
+    db_record.title = record.title
+    db_record.content = record.content
+    db.commit()
+    db.refresh(db_record)
+
+    return {"code": 200, "msg": "更新成功", "data": db_record}
+
+
+# ==========================================
+# 8. 删除记录接口
 # ==========================================
 @app.delete("/records/{record_id}")
 def delete_record(record_id: int, db: Session = Depends(database.get_db)):
