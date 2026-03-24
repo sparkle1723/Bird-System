@@ -120,20 +120,25 @@ const saveData = async () => {
     // 使用 uploadFile 上传到 FastAPI 后端
     if (filePath) {
       console.log('使用 uploadFile 上传:', CONFIG.FASTAPI_UPLOAD_URL);
+      const uploadFormData = {
+        username: user.username,
+        title: formData.value.title,
+        content: formData.value.content
+      };
+      // 如果是编辑模式，传递 record_id
+      if (formData.value._id) {
+        uploadFormData.record_id = formData.value._id;
+      }
       uni.uploadFile({
         url: CONFIG.FASTAPI_UPLOAD_URL,
         filePath: filePath,
         name: 'file',
-        formData: {
-          username: user.username,
-          title: formData.value.title,
-          content: formData.value.content
-        },
+        formData: uploadFormData,
         success: (res) => {
           const data = JSON.parse(res.data);
           if (data.code === 200) {
-            uni.showToast({ title: '保存成功' });
-            setTimeout(() => { uni.navigateBack(); }, 1000);
+            uni.showToast({ title: data.msg || '保存成功' });
+            setTimeout(() => { uni.switchTab({ url: '/pages/store/store' }); }, 1000);
           } else {
             uni.showToast({ title: data.msg || '保存失败', icon: 'none' });
           }

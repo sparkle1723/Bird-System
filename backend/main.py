@@ -62,6 +62,7 @@ async def upload_file(
         username: str = Form(...),
         title: str = Form("AI识别记录"),
         content: str = Form(""),
+        record_id: int = Form(None),
         file: UploadFile = File(...),
         db: Session = Depends(database.get_db)
 ):
@@ -86,7 +87,21 @@ async def upload_file(
     
     url = f"{scheme}://{server_host}/static/images/{file_name}"
 
-    # 存入数据库
+    # 如果提供了 record_id，则更新现有记录
+    if record_id:
+        db_record = db.query(models.Record).filter(models.Record.id == record_id).first()
+        if db_record:
+            # 验证记录所有者
+            if db_record.owner_username != username:
+                return {"code": 403, "msg": "无权修改此记录"}
+            db_record.title = title
+            db_record.content = content
+            db_record.file_url = url
+            db.commit()
+            db.refresh(db_record)
+            return {"code": 200, "msg": "更新成功", "url": url, "id": record_id}
+    
+    # 否则创建新记录
     new_record = models.Record(
         title=title,
         content=content,
