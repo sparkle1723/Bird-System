@@ -36,7 +36,7 @@
           </view>
         </view>
         <view class="feature-item">
-          <text class="icon">🤖</text>
+          <text class="icon">🐦</text>
           <view class="feature-text">
             <text class="feature-name">雀灵助手</text>
             <text class="feature-desc">AI 鸟类专家，随时解答疑问</text>
@@ -67,7 +67,7 @@
       <view class="section-title">AI 技术架构</view>
       <view class="tech-detail">
         <view class="tech-block">
-          <text class="tech-name">🤖 雀灵助手</text>
+          <text class="tech-name">🐦 雀灵助手</text>
           <text class="tech-desc">基于 DeepSeek V3 大语言模型，使用鸟类知识库微调训练，支持自然语言问答。</text>
         </view>
         <view class="tech-block">
@@ -252,6 +252,7 @@
   font-size: 20px;
   font-weight: bold;
   color: #333;
+  margin-bottom: 5px;
 }
 
 .contact-company {

@@ -57,8 +57,8 @@
       </view>
       
       <view class="grid-item" @click="goDeepSeek">
-        <view class="icon-box cyan-bg">🤖</view>
-        <text>AI问鸟</text>
+        <view class="icon-box cyan-bg">🐦</view>
+        <text>雀灵助手</text>
       </view>
       
       <view class="grid-item" @click="goVoice">
@@ -74,7 +74,7 @@
 
       <view class="grid-item" @click="goStore">
         <view class="icon-box blue-bg">📦</view>
-        <text>管理库存</text>
+        <text>管理仓库</text>
       </view>
       
       <view class="grid-item" @click="goMap">

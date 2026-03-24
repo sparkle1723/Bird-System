@@ -18,16 +18,14 @@
         class="chat-item" 
         :class="msg.role === 'user' ? 'chat-user' : 'chat-ai'">
         
-        <image v-if="msg.role === 'ai'" class="chat-avatar ai-avatar" src="/static/logo.png" mode="aspectFill"></image>
+        <image v-if="msg.role === 'ai'" class="chat-avatar ai-avatar" src="/static/1.png" mode="aspectFill"></image>
         
         <view class="bubble">
           <text v-if="msg.role === 'ai' && msg.isMarkdown" class="markdown-content">{{ msg.content }}</text>
           <text v-else>{{ msg.content }}</text>
         </view>
         
-        <view v-if="msg.role === 'user'" class="chat-avatar user-avatar">
-          <uni-icons type="person" size="20" color="#fff"></uni-icons>
-        </view>
+        <image v-if="msg.role === 'user'" class="chat-avatar user-avatar" src="/static/logo.png" mode="aspectFill"></image>
       </view>
       
       <!-- 加载中提示 -->
@@ -252,12 +250,10 @@ const goHome = () => {
   box-sizing: border-box;
 }
 .ai-avatar { 
-  margin-right: 10px; 
-  border: 2px solid #667eea;
-  background-color: #fff;
+  margin-right: 10px;
 }
 .user-avatar { 
-  background: linear-gradient(135deg, #4facfe, #00f2fe); 
+  border: 2px solid #4ECDC4;
   margin-left: 10px; 
 }
 

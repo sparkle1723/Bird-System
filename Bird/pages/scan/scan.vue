@@ -34,11 +34,11 @@
             class="chat-item" 
             :class="msg.role === 'user' ? 'chat-user' : 'chat-ai'">
             
-            <view v-if="msg.role === 'ai'" class="chat-avatar ai-avatar">🤖</view>
+            <image v-if="msg.role === 'ai'" class="chat-avatar ai-avatar" src="/static/1.png" mode="aspectFill"></image>
             
             <view class="bubble">{{ msg.content }}</view>
             
-            <view v-if="msg.role === 'user'" class="chat-avatar user-avatar">👤</view>
+            <image v-if="msg.role === 'user'" class="chat-avatar user-avatar" src="/static/logo.png" mode="aspectFill"></image>
           </view>
         </scroll-view>
 
@@ -289,9 +289,9 @@ const scrollToBottom = () => {
 .chat-user { justify-content: flex-end; }
 .chat-ai { justify-content: flex-start; }
 
-.chat-avatar { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; background: #ddd; flex-shrink: 0; }
-.ai-avatar { background: #e0f2ff; margin-right: 8px; }
-.user-avatar { background: #007AFF; color: #fff; margin-left: 8px; }
+.chat-avatar { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+.ai-avatar { margin-right: 8px; }
+.user-avatar { border: 2px solid #4ECDC4; margin-left: 8px; }
 
 .bubble { max-width: 70%; padding: 8px 12px; border-radius: 12px; font-size: 13px; line-height: 1.4; position: relative; }
 .chat-user .bubble { background: #007AFF; color: #fff; border-top-right-radius: 2px; }
