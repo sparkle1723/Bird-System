@@ -17,8 +17,6 @@
         <text class="sub-text">{{ isLogin ? '已登录' : '登录后解锁更多功能' }}</text>
       </view>
       
-      <!-- 箭头 -->
-      <text class="header-arrow">›</text>
     </view>
     
     <!-- 数据统计卡片 -->

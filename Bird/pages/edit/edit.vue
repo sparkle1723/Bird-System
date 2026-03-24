@@ -21,7 +21,7 @@
     </view>
     
     <view class="form-item">
-      <text class="label">详情备注</text>
+      <text class="label">详情</text>
       <textarea class="textarea" v-model="formData.content" placeholder="请输入详细内容" />
     </view>
 
@@ -213,7 +213,7 @@ const saveData = async () => {
 .form-item { margin-bottom: 25px; }
 .label { display: block; margin-bottom: 10px; font-weight: bold; font-size: 16px; color: #333; }
 .input { background: #f8f8f8; padding: 12px; border-radius: 8px; font-size: 16px; }
-.textarea { background: #f8f8f8; padding: 12px; border-radius: 8px; width: 100%; height: 100px; box-sizing: border-box;}
+.textarea { background: #f8f8f8; padding: 12px; border-radius: 8px; width: 100%; height: 200px; box-sizing: border-box;}
 .upload-box { width: 100%; height: 220px; background-color: #f0f2f5; border-radius: 12px; overflow: hidden; position: relative; border: 1px dashed #ccc; box-sizing: border-box; }
 .add-icon { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #999; }
 .plus { font-size: 40px; line-height: 40px; font-weight: 300; }

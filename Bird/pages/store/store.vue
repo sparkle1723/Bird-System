@@ -56,7 +56,7 @@ const FASTAPI_BASE_URL = CONFIG.FASTAPI_BASE_URL;
 const list = ref([]);
 const isLogin = ref(false);
 const currentUser = ref(null);
-// 🔥 新增：根据标题动态判断显示哪张封面图
+// 新增：根据标题动态判断显示哪张封面图
 const getCoverImage = (title) => {
   if (!title) return '/static/bird.png';
   
@@ -142,7 +142,7 @@ const goLogin = () => uni.navigateTo({ url: '/pages/login/login' });
 // 点右下角 + 号，新建记录（不传id）
 const goAdd = () => uni.navigateTo({ url: '/pages/edit/edit' }); 
 
-// 🔥 核心修改：点列表数据，跳转编辑页并传值
+//  核心修改：点列表数据，跳转编辑页并传值
 const goEdit = (item) => {
   // 把当前点击的数据存到本地缓存里，供编辑页读取
   uni.setStorageSync('current_detail_item', {

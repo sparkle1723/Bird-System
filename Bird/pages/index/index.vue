@@ -216,5 +216,5 @@ const goDeepSeek = () => uni.navigateTo({ url: '/pages/chat/chat' });
 .orange-bg { background: linear-gradient(135deg, #f6d365, #fda085); }
 .purple-bg { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
 .red-bg { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
-.cyan-bg { background: linear-gradient(135deg, #00c6ff, #0072ff); }
+.cyan-bg { background: linear-gradient(135deg, #a8edea, #fed6e3); }
 </style>
