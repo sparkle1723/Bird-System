@@ -15,10 +15,10 @@
       <view class="result-header">
         <text v-if="result.confidence === 'very_low'" class="very-low-tip">⚠️ 置信度低</text>
         <template v-else-if="result.confidence === 'low'">
-          <text class="match-score">匹配度: {{ result.score }}%</text>
+          <text class="match-score">匹配度：{{ result.score }}%</text>
           <text class="low-confidence-tip">⚠️ 置信度较低</text>
         </template>
-        <text v-else class="match-score">匹配度: {{ result.score }}%</text>
+        <text v-else-if="result.name !== '未知'" class="match-score">匹配度：{{ result.score }}%</text>
         <text class="tag">雀灵识别</text>
       </view>
       <text class="bird-name">{{ result.name }}</text>

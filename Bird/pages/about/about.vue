@@ -72,11 +72,11 @@
         </view>
         <view class="tech-block">
           <text class="tech-name">📷 图像识别</text>
-          <text class="tech-desc">基于 ResNet18 卷积神经网络，使用 CUB-200 鸟类数据集训练。</text>
+          <text class="tech-desc">基于 ResNet50 卷积神经网络，使用 CUB-200 鸟类数据集训练，支持 499 种常见鸟类识别。</text>
         </view>
         <view class="tech-block">
           <text class="tech-name">🎙️ 声纹识别</text>
-          <text class="tech-desc">基于 CAM++ 声纹模型，使用梅尔频谱特征提取，支持鸟类叫声分类识别。</text>
+          <text class="tech-desc">基于 CAM++ 声纹模型，使用 80 维梅尔频谱特征，支持 162 种鸟类叫声识别。</text>
         </view>
       </view>
     </view>

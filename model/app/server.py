@@ -464,31 +464,62 @@ def get_similarity_warning(pred_class, topk_results=None):
 
 
 def generate_spectrogram_base64(audio_path):
+    import warnings
     try:
-        y, sr = librosa.load(audio_path, duration=6, sr=22050)
-        y = librosa.effects.preemphasis(y)
-        intervals = librosa.effects.split(y, top_db=20)
-        if len(intervals) > 0:
-            y = np.concatenate([y[start:end] for start, end in intervals])
-        y = librosa.util.normalize(y)
-        S = librosa.feature.melspectrogram(
-            y=y, sr=sr, n_mels=128, fmax=8000, hop_length=256, n_fft=2048
+        # 1. 优雅屏蔽底层的读取警告（解决 PySoundFile 报错），固定读取最多6秒
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            # 移除 backend 参数，让 librosa 自动处理降级
+            y, sr = librosa.load(audio_path, duration=6, sr=22050)
+            
+        # 2. 核心修复：防止短音频被拉伸成马赛克！
+        # 如果音频不足 3 秒，在末尾补充静音，保证时间轴比例正常，声纹不会变形
+        min_length = int(3.0 * sr)
+        if len(y) < min_length:
+            y = librosa.util.fix_length(y, size=min_length)
+            
+        # 3. 信号预加重：专门增强鸟叫的高频穿透力
+        y = librosa.effects.preemphasis(y, coef=0.97)
+        
+        # 4. 专业算法：使用 STFT（短时傅里叶变换）构建线性频率谱
+        # 放弃 melspectrogram，改用线性谱，让人眼能看清鸟类的平行谐波！
+        n_fft = 2048
+        hop_length = 256
+        D = librosa.stft(y, n_fft=n_fft, hop_length=hop_length, window='hann')
+        
+        # 将幅度转换为分贝 (dB)，设置 top_db=80 使画面具备极高对比度
+        S_dB = librosa.amplitude_to_db(np.abs(D), ref=np.max, top_db=40)
+        
+        # 5. 绘图参数设置
+        plt.figure(figsize=(10, 8), dpi=150) # 提高分辨率
+        librosa.display.specshow(
+            S_dB, 
+            sr=sr, 
+            hop_length=hop_length,
+            x_axis='time', 
+            y_axis='linear',  # ⚠️ 强制使用线性频率
+            cmap='magma'      # ⚠️ 更换专业声学配色（黑底-紫-橘-亮黄）
         )
-        S_dB = librosa.power_to_db(S, ref=np.max)
         
-        plt.figure(figsize=(10, 4), dpi=100)
-        librosa.display.specshow(S_dB, sr=sr, x_axis='time', y_axis='mel', fmax=8000, cmap='viridis')
+        # 6. 频率裁剪（声纹灵魂所在）：
+        plt.ylim(200, 3800)
+        
+        # 移除坐标轴和多余的边距，让画面完全填满前端的 UI 圆角容器
         plt.axis('off')
-        plt.tight_layout(pad=0)
+        plt.subplots_adjust(top=1, bottom=0, left=0, right=1, hspace=0, wspace=0)
+        plt.margins(0)
         
+        # 导出为高品质透明抗锯齿图片
         buffer = io.BytesIO()
-        plt.savefig(buffer, format='png', transparent=True, bbox_inches='tight', pad_inches=0)
+        plt.savefig(buffer, format='png', transparent=True, bbox_inches='tight', pad_inches=0, dpi=300)
         buffer.seek(0)
         img_str = base64.b64encode(buffer.read()).decode('utf-8')
         plt.close()
+        
         return "data:image/png;base64," + img_str
+        
     except Exception as e:
-        print(f"画图失败: {e} (请尝试运行: pip install soundfile)")
+        print(f"画图失败：{e}")
         return ""
 
 def ask_deepseek_about_bird(bird_name):

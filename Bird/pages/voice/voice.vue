@@ -18,20 +18,20 @@
       </view>
 
       <view v-else-if="parsedResult.name" class="parsed-content">
-        <text class="res-title">识别结果: {{ parsedResult.name }}</text>
+        <text class="res-title">识别结果：{{ parsedResult.name }}</text>
         <text v-if="parsedResult.confidence === 'very_low'" class="res-score very-low">⚠️ 置信度低</text>
         <template v-else-if="parsedResult.confidence === 'low'">
-          <text class="res-score">置信度: {{ (parsedResult.score * 100).toFixed(1) }}%</text>
+          <text class="res-score">置信度：{{ (parsedResult.score * 100).toFixed(1) }}%</text>
           <text class="res-score low">⚠️ 置信度较低</text>
         </template>
-        <text v-else class="res-score">置信度: {{ (parsedResult.score * 100).toFixed(1) }}%</text>
+        <text v-else-if="parsedResult.name !== '未知'" class="res-score">置信度：{{ (parsedResult.score * 100).toFixed(1) }}%</text>
         <text v-if="parsedResult.desc" class="res-desc">{{ parsedResult.desc }}</text>
 
         <view class="voiceprint-box" v-if="parsedResult.voiceprint">
           <text class="vp-label">—— 声纹可视化 ——</text>
           <image 
             class="vp-image" 
-            mode="scaleToFill" 
+			mode="widthFix" 
             :src="parsedResult.voiceprint"
             @error="onImageError"
           ></image>
@@ -163,7 +163,8 @@ const uploadAudio = (filePath) => {
             name: resJson.data.name,   
             desc: resJson.data.desc || '',   
             score: resJson.data.score,
-            voiceprint: resJson.data.voiceprint 
+            voiceprint: resJson.data.voiceprint,
+            confidence: resJson.data.confidence  // 新增：添加置信度等级
           };
 
           statusText.value = '识别成功';
@@ -399,7 +400,6 @@ const saveToStore = async () => {
 
 .vp-image { 
   width: 100%; 
-  height: 200px; /* ★ 修改点：高度加大到 200px，配合 scaleToFill 彻底拉高声纹 */
   background-color: #000; 
   border-radius: 12px; 
 }
