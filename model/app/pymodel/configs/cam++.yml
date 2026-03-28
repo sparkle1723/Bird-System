@@ -38,12 +38,12 @@ dataset_conf:
     speed_perturb: True
     # 是否使用音量增强
     volume_perturb: False
-    # 音量增强概率
-    volume_aug_prob: 0.2
+    # 音量增强概率（优化：从 0.2 提升到 0.3）
+    volume_aug_prob: 0.3
     # 噪声增强的噪声文件夹
     noise_dir: 'dataset/noise'
-    # 噪声增强概率
-    noise_aug_prob: 0.2
+    # 噪声增强概率（优化：从 0.2 提升到 0.3，提升鲁棒性）
+    noise_aug_prob: 0.3
   # 是否使用SpecAug
   use_spec_aug: True
   # Spec增强参数
@@ -65,6 +65,8 @@ preprocess_conf:
   # 当use_hf_model为True时，可以设置参数use_gpu，指定是否使用GPU提取特征
   method_args:
     sample_frequency: 16000
+    # 注意：保持 80 以兼容现有模型权重
+    # 如需使用 128，需要重新训练模型
     num_mel_bins: 80
 
 optimizer_conf:
