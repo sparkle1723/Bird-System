@@ -310,12 +310,14 @@ AI 鸟类专家，基于 DeepSeek V3 大语言模型，随时解答鸟类相关�
 │   │   │   └── run_ai.py               # AI 推理测试脚本
 │   │   │
 │   │   └── requirements.txt            # AI 服务依赖包
-│   │
-│   └── OPTIMIZATION_NOTES.md          # 性能优化详细文档
 │
 ├── 📄 配置文件:
 │   ├── .gitignore                     # Git 忽略规则
 │   └── README.md                      # 项目文档
+│
+├── 📚 模型训练相关:
+│   ├── train_visual.py                # 视觉模型训练脚本
+│   └── prepare_data.py                # 数据准备脚本
 │
 └── 💡 服务启动方式:
     ├── 前端：cd Bird → npm run dev
