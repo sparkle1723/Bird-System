@@ -34,7 +34,7 @@
 		{
 			"path": "pages/voice/voice",
 			"style": {
-				"navigationBarTitleText": "语音记事",
+				"navigationBarTitleText": "声纹识别",
 				"navigationBarBackgroundColor": "#2c3e50",
 				"navigationBarTextStyle": "white"
 			}
@@ -42,7 +42,7 @@
 		{
 			"path": "pages/scan/scan",
 			"style": {
-				"navigationBarTitleText": "智能识别",
+				"navigationBarTitleText": "拍照识别",
 				"navigationBarBackgroundColor": "#1c1c1e",
 				"navigationBarTextStyle": "white"
 			}

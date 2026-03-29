@@ -64,27 +64,27 @@
 
     <!-- AI 技术详情 -->
     <view class="section">
-      <view class="section-title">AI 技术架构</view>
-      <view class="tech-detail">
-        <view class="tech-block">
-          <text class="tech-name">🐦 雀灵助手</text>
-          <text class="tech-desc">基于 DeepSeek V3 大语言模型，使用鸟类知识库微调训练，支持自然语言问答。</text>
-        </view>
-        <view class="tech-block">
-          <text class="tech-name">📷 图像识别</text>
-          <text class="tech-desc">基于 ResNet50 卷积神经网络，使用 CUB-200 鸟类数据集训练，支持 499 种常见鸟类识别。</text>
-        </view>
-        <view class="tech-block">
-          <text class="tech-name">🎙️ 声纹识别</text>
-          <text class="tech-desc">基于 CAM++ 声纹模型，使用 80 维梅尔频谱特征，支持 162 种鸟类叫声识别。</text>
-        </view>
-      </view>
+  <view class="section-title">AI 技术架构</view>
+  <view class="tech-detail">
+    <view class="tech-block">
+      <text class="tech-name">🐦 雀灵助手</text>
+      <text class="tech-desc">基于 DeepSeek V3 大语言模型，结合专业鸟类知识库进行微调训练，提供精准的自然语言问答服务。</text>
     </view>
+    <view class="tech-block">
+      <text class="tech-name">📷 图像识别</text>
+      <text class="tech-desc">基于 ResNet50 卷积神经网络，融合 CUB-200 等大规模鸟类数据集训练，支持多达 499 种常见鸟类识别。</text>
+    </view>
+    <view class="tech-block">
+      <text class="tech-name">🎙️ 声纹识别</text>
+      <text class="tech-desc">基于 CAM++ 声纹识别模型，通过提取 80 维梅尔频谱（Mel）特征，支持 162 种鸟类叫声的智能辨识。</text>
+    </view>
+  </view>
+</view>
 
     <!-- 联系我们 -->
     <view class="section contact-section">
-      <text class="contact-name">@小北</text>
-      <text class="contact-company">洛圣都网络科技有限公司</text>
+      <text class="contact-name">潘羿丞 李亦晨 何泽宇 潘启政</text>
+      <text class="contact-company">金陵科技学院</text>
     </view>
 
     <!-- 版权信息 -->

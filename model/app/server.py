@@ -41,7 +41,7 @@ BIRD_TRANSLATOR = {
     "Agropsar": "椋鸟", "Alauda": "云雀", "Alcippe": "雀鹛",
     "Anas": "鸭", "Anser": "雁", "Anthipes": "鹟",
     "Anthus": "鹨", "Apus": "雨燕", "Arborophila": "山鹧鸪",
-    "Arundinax": "大苇莺", "Aythya": "潜鸭", "Aix": "鸳鸯",
+    "Arundinax": "大苇莺", "Aythya": "潜鸭", "Aix": "鸳鸯","Alectoris": "石鸡",
     # B
     "Bambusicola": "竹鸡", "Batrachostomus": "蛙口夜鹰", "Brachypteryx": "短翅鸫",
     "Bradypterus": "短翅莺",
@@ -55,7 +55,7 @@ BIRD_TRANSLATOR = {
     "Coturnix": "鹌鹑", "Crossoptilon": "马鸡", "Curruca": "白喉林莺",
     "Cutia": "斑胁希鹛", "Cuculus": "布谷鸟", "Cyanoderma": "雅鹛",
     "Cyanopica": "灰喜鹊", "Cyanoptila": "白腹蓝鹟", "Cyornis": "蓝鹟",
-    "Cypsiurus": "棕雨燕", "Cygnus": "天鹅",
+    "Cypsiurus": "棕雨燕", "Cygnus": "天鹅","Cettia": "树莺",
     # D
     "Delichon": "毛脚燕", "Dendrocygna": "树鸭", "Ducula": "皇鸠",
     # E
@@ -67,7 +67,7 @@ BIRD_TRANSLATOR = {
     "Gallicrex": "董鸡", "Gallinula": "黑水鸡", "Gallus": "原鸡",
     "Garrulax": "噪鹛", "Garrulus": "松鸦", "Geokichla": "地鸫",
     "Graminicola": "大草莺", "Grammatoptila": "纹背噪鹛", "Grandala": "蓝大翅鸲",
-    "Gypsophila": "鹪鹛",
+    "Gypsophila": "鹪鹛","Gracupica": "椋鸟",
     # H
     "Helopsaltes": "苍眉蝗莺", "Heterophasia": "奇鹛", "Hierococcyx": "鹰鹃",
     "Horornis": "短翅莺", "Hirundo": "燕",
@@ -82,7 +82,7 @@ BIRD_TRANSLATOR = {
     "Macropygia": "鹃鸠", "Mareca": "赤颈鸭", "Megalurus": "大尾莺",
     "Minla": "希鹛", "Mixornis": "纹胸鹛", "Motacilla": "鹡鸰",
     "Moupinia": "宝兴鹛雀", "Muscicapa": "鹟", "Myophonus": "啸鸫",
-    "Myzornis": "火尾绿鹛",
+    "Myzornis": "火尾绿鹛","Mergus": "秋沙鸭",
     # N
     "Napothera": "短尾鹛", "Neosuthora": "短尾鹦嘴雀", "Nettapus": "棉凫",
     "Niltava": "仙鹟", "Ninox": "鹰鸮",
@@ -95,7 +95,7 @@ BIRD_TRANSLATOR = {
     "Phylloscopus": "柳莺", "Phyllergates": "金头缝叶莺", "Pica": "喜鹊",
     "Pnoepyga": "鳞鹩", "Polyplectron": "孔雀雉", "Pomatorhinus": "钩嘴鹛",
     "Porphyrio": "紫水鸡", "Prinia": "山鹪莺", "Psittiparus": "鹦嘴雀",
-    "Pterorhinus": "噪鹛", "Ptyonoprogne": "岩燕", "Pycnonotus": "鹎",
+    "Pterorhinus": "噪鹛", "Ptyonoprogne": "岩燕", "Pycnonotus": "鹎","Perdix": "山鹑","Pucrasia": "勺鸡",
     # R
     "Rallina": "斑秧鸡", "Rallus": "秧鸡", "Regulus": "戴菊",
     "Rhipidura": "扇尾鹟", "Rhopophilus": "山鹛", "Riparia": "沙燕",
@@ -104,12 +104,12 @@ BIRD_TRANSLATOR = {
     "Spatula": "琵嘴鸭", "Spelaeornis": "鹪鹛", "Stachyris": "穗鹛",
     "Staphida": "凤鹛", "Streptopelia": "斑鸠", "Strix": "林鸮",
     "Sturnia": "椋鸟", "Sturnus": "椋鸟", "Suthora": "鹦嘴雀",
-    "Syrmaticus": "长尾雉", "Syrrhaptes": "毛腿沙鸡",
+    "Syrmaticus": "长尾雉", "Syrrhaptes": "毛腿沙鸡","Sitta": "鳾","Spodiopsar": "椋鸟","Surniculus": "乌鹃",
     # T
     "Tarsiger": "林鸲", "Tesia": "短翅莺", "Tetraogallus": "雪鸡",
     "Tetrastes": "榛鸡", "Tetraophasis": "雉鹑", "Tickellia": "宽嘴鹟莺",
     "Tichodroma": "红翅旋壁雀", "Timalia": "红顶鹛", "Treron": "绿鸠",
-    "Trochalopteron": "噪鹛", "Troglodytes": "鹪鹩", "Tropicoperdix": "山鹧鸪",
+    "Trochalopteron": "噪鹛", "Troglodytes": "鹪鹩", "Tropicoperdix": "山鹧鸪","Tadorna": "麻鸭","Tragopan": "角雉",
     "Turdus": "鸫",
     # U
     "Urosphena": "小短翅莺",
@@ -177,23 +177,23 @@ VISION_BIRD_TRANSLATOR = {
     "CALIFORNIA QUAIL": "加州鹌鹑", "CAMPO FLICKER": "坎波扑翅鴷",
     "CANARY": "金丝雀", "CANVASBACK": "帆背潜鸭",
     "CAPE GLOSSY STARLING": "南非辉椋鸟", "CAPE LONGCLAW": "橙喉长爪鹡鸰", "CAPE MAY WARBLER": "栗颊林莺",
-    "CAPE ROCK THRUSH": "南非岩鸫",
+    "CAPE ROCK THRUSH": "南非岩鸫","CINNAMON ATTILA": "桂红阿蒂拉霸鹟","CINNAMON FLYCATCHER": "桂红霸鹟", 
     "CAPPED HERON": "黑冠白鹭", "CAPUCHINBIRD": "秃伞鸟", "CARMINE BEE-EATER": "红蜂虎",
     "CASPIAN TERN": "红嘴巨鸥", "CASSOWARY": "鹤鸵", "CEDAR WAXWING": "雪松太平鸟",
     "CERULEAN WARBLER": "天蓝林莺", "CHARA DE COLLAR": "领鸻", "CHATTERING LORY": "喋喋吸蜜鹦鹉",
     "CHESTNET BELLIED EUPHONIA": "栗腹歌雀", "CHESTNUT WEAVER": "栗织雀",
     "CHINESE BAMBOO PARTRIDGE": "中国竹鸡", "CHINESE POND HERON": "中国池鹭",
     "CHIPPING SPARROW": "chipping 麻雀", "CHUCAO TAPACULO": "chucao 塔帕库洛",
-    "CHUKAR PARTRIDGE": "石鸡", "CLARKS GREBE": "克氏䴙䴘",
+    "CHUKAR PARTRIDGE": "石鸡", "CLARKS GREBE": "克氏䴙䴘","CINNAMON TEAL": "桂红鸭",
     "CLARKS NUTCRACKER": "北美星鸦", "COLLARED ARACARI": "领簇舌巨嘴鸟",
-    "COLLARED CRESCENTCHEST": "领新月胸雀",
+    "COLLARED CRESCENTCHEST": "领新月胸雀","COCK OF THE ROCK": "动冠伞鸟",
     "COMMON FIRECREST": "火冠戴菊", "COMMON GRACKLE": "紫翅椋鸟", "COMMON HOUSE MARTIN": "白腹毛脚燕",
     "COMMON IORA": "黑翅雀鹎", "COMMON LOON": "普通潜鸟", "COMMON POORWILL": "北美小夜鹰",
     "COMMON STARLING": "紫翅椋鸟", "COPPERY TAILED COUCAL": "铜尾鸦鹃",
     "COPPERSMITH BARBET": "赤胸拟啄木鸟", "CORMORANT": "鸬鹚",
     "CORONED KINGLET": "戴菊", "COUCHS KINGBIRD": "库氏王霸鹟", "CRAB PLOVER": "蟹鸻",
-    "CRANE HAWK": "鹤鹰",
-    "CREAM COLORED WOODPECKER": "乳白色啄木鸟",
+    "CRANE HAWK": "鹤鹰","COCK OF THE  ROCK": "动冠伞鸟",
+    "CREAM COLORED WOODPECKER": "乳白色啄木鸟","COCKATOO": "凤头鹦鹉",
     "CRESTED AUKLET": "冠小海雀", "CRESTED CARACARA": "凤头卡拉鹰", "CRESTED COUA": "冠马岛鹃",
     "CRESTED FIREBACK": "凤头火背鹇", "CRESTED KINGFISHER": "冠鱼狗", "CRESTED NUTHATCH": "冠鳾",
     "CRESTED OROPENDOLA": "冠拟黄鹂", "CRESTED SERPENT EAGLE": "冠蛇雕",
@@ -327,12 +327,12 @@ VISION_BIRD_TRANSLATOR = {
     "RED LEGGED HONEYCREEPER": "红腿旋蜜雀",
     "RED NAPED TROGON": "红枕咬鹃", "RED SHOULDERED HAWK": "红肩鹰",
     "RED TAILED HAWK": "红尾𫛭", "RED TAILED THRUSH": "红尾鸫", "RED WINGED BLACKBIRD": "红翅黑鹂",
-    "RED WISKERED BULBUL": "红耳鹎",
+    "RED WISKERED BULBUL": "红耳鹎","RED BEARDED BEE EATER": "赤须夜蜂虎",
     "REGENT BOWERBIRD": "黄头园丁鸟", "RING-NECKED PHEASANT": "环颈雉", "ROADRUNNER": "走鹃",
     "ROBIN": "知更鸟", "ROCK DOVE": "原鸽", "ROSE BREASTED COCKATOO": "玫瑰胸凤头鹦鹉",
     "ROSE BREASTED GROSBEAK": "玫瑰胸蜡嘴雀",
-    "ROSEATE SPOONBILL": "玫瑰琵鹭",
-    "ROSY FACED LOVEBIRD": "桃脸情侣鹦鹉",
+    "ROSEATE SPOONBILL": "玫瑰琵鹭","RED BILLED TROPICBIRD": "红嘴鹲",
+    "ROSY FACED LOVEBIRD": "桃脸情侣鹦鹉","RED BROWED FINCH": "红眉火尾雀",
     "ROUGH LEG BUZZARD": "毛脚𫛭", "ROYAL FLYCATCHER": "皇霸鹟", "RUBY CROWNED KINGLET": "红冠戴菊",
     "RUBY THROATED HUMMINGBIRD": "红喉北蜂鸟", "RUDY KINGFISHER": "鲁迪翡翠",
     "RUFOUS KINGFISHER": "棕背翡翠", "RUFOUS TAILED JACAMAR": "棕尾鹟鴷",
@@ -345,7 +345,7 @@ VISION_BIRD_TRANSLATOR = {
     "SCARLET IBIS": "美洲红鹮", "SCARLET MACAW": "绯红金刚鹦鹉", "SCARLET TANAGER": "猩红丽唐纳雀",
     "SHOEBILL": "鲸头鹳", "SHORT BILLED DOWITCHER": "短嘴半蹼鹬", "SMITHS LONGSPUR": "史氏铁爪鹀",
     "SNOW GOOSE": "雪雁", "SNOWY EGRET": "雪鹭", "SNOWY OWL": "雪鸮",
-    "SNOWY PLOVER": "雪鸻",
+    "SNOWY PLOVER": "雪鸻","STRIATED CARACARA": "纹卡拉鹰",
     "SORA": "北美田鸡", "SPANGLED COTINGA": "辉伞鸟", "SPLENDID FAIRYWREN": "壮丽细尾鹩莺",
     "SPLENDID WREN": "壮丽鹪鹩",
     "SPOON BILED SANDPIPER": "勺嘴鹬", "SPOTTED CATBIRD": "斑猫鸟", "SPOTTED WHISTLING DUCK": "斑啸鸭",
@@ -426,7 +426,7 @@ def translate_bird_name(name):
                     return v_cn
 
     # 5. 如果实在找不到，把下划线转成空格，看起来至少像标准的英文名
-    return name.replace('_', ' ')
+    return name.replace('_', ' ').title()
 
 
 # ================= 2. 功能函数 =================
@@ -711,9 +711,6 @@ def predict_image():
         image = ImageEnhance.Sharpness(image).enhance(1.3)
             
         # ==================== 优化：多尺度 TTA ====================
-        # 原始尺寸
-        image_tensor = vision_transform(image).unsqueeze(0)
-            
         # 多尺度测试（256x320）
         scales = [224, 256, 288]
         all_outputs = []

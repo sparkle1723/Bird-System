@@ -153,7 +153,6 @@ const uploadAudio = (filePath) => {
     name: 'file',
     header: { 'ngrok-skip-browser-warning': 'true' },
     success: (uploadFileRes) => {
-      console.log('服务器返回:', uploadFileRes.data);
       
       try {
         const resJson = JSON.parse(uploadFileRes.data);
