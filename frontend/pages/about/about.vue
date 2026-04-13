@@ -3,7 +3,7 @@
     <!-- 头部 Logo -->
     <view class="header">
       <image class="logo" src="/static/logo.png" mode="aspectFit"></image>
-      <text class="app-name">鸟了么</text>
+      <text class="app-name">雀灵</text>
       <text class="version">版本 1.1.0</text>
     </view>
 
@@ -12,7 +12,7 @@
       <view class="section-title">关于应用</view>
       <view class="content">
         <text class="desc">
-          鸟了么 是一款专为鸟类爱好者打造的智能识别与记录应用。通过 AI 技术，帮助用户识别鸟类、记录观测数据、学习鸟类知识。
+          雀灵 是一款专为鸟类爱好者打造的智能识别与记录应用。通过 AI 技术，帮助用户识别鸟类、记录观测数据、学习鸟类知识。
         </text>
       </view>
     </view>
@@ -81,16 +81,7 @@
   </view>
 </view>
 
-    <!-- 联系我们 -->
-    <view class="section contact-section">
-      <text class="contact-name">潘羿丞 李亦晨 何泽宇 潘启政</text>
-      <text class="contact-company">金陵科技学院</text>
-    </view>
 
-    <!-- 版权信息 -->
-    <view class="footer">
-      <text class="copyright">© 2026 Bird Watcher. All rights reserved.</text>
-    </view>
   </view>
 </template>
 
