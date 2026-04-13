@@ -2,7 +2,7 @@
   <view class="container">
     <!-- 头部 Logo -->
     <view class="header">
-      <image class="logo" src="/static/logo.png" mode="aspectFit"></image>
+      <image class="logo" src="/static/head.png" mode="aspectFit"></image>
       <text class="app-name">雀灵</text>
       <text class="version">版本 1.1.0</text>
     </view>
