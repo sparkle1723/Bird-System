@@ -609,18 +609,15 @@ try:
         with open(class_path, 'r', encoding='utf-8') as f:
             vision_classes = [line.strip() for line in f.readlines()]
             
-        # ⚠️ 核心升级：从 resnet18 换成 resnet50！
         vision_model = models.resnet50(weights=None)
         num_ftrs = vision_model.fc.in_features
         vision_model.fc = nn.Linear(num_ftrs, len(vision_classes))
         
-        # ⚠️ 核心升级：读取最新的巅峰模型权重
         model_path = os.path.join(current_dir, 'best_bird_model.pth')
         if os.path.exists(model_path):
             vision_model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
             vision_model.eval()
             
-            # ⚠️ 核心升级：与 4090 训练时完全一致的预处理流程
             vision_transform = transforms.Compose([
                 transforms.Resize(256),
                 transforms.CenterCrop(224),
