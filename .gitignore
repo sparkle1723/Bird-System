@@ -81,18 +81,14 @@ Desktop.ini
 
 # ==================== Project Specific ====================
 # Uploaded files (user generated content)
+backend/uploads/*
+!backend/uploads/.gitkeep
 backend/uploads/images/*
 !backend/uploads/images/.gitkeep
 
-# Model weights (large files)
-*.pth
-*.pt
-*.h5
-*.onnx
-
-# Dataset files
-model/app/dataset/*
-!model/app/dataset/.gitkeep
+# Database files
+*.db
+*.sqlite3
 
 # Environment variables
 .env
@@ -114,3 +110,12 @@ logs/
 # Cache
 .cache/
 *.cache
+
+# ==================== Force Track Model Folder ====================
+# 强制不忽略 model 文件夹下的所有内容，确保模型与数据都能提交
+!model/
+!model/**
+# 但排除其中的自动生成的缓存与 IDE 配置
+model/**/__pycache__/
+model/**/.idea/
+model/**/*.pyc
