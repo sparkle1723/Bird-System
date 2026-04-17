@@ -12,7 +12,12 @@
       show-location
       enable-traffic
       @markertap="onMarkerTap"
-    ></map>
+    >
+      <!-- 地图来源标注 - 必须在map内部 -->
+      <cover-view class="map-attribution">
+        <cover-view class="attribution-text">地图由高德地图提供 | 审图号：GS(2025)1158号</cover-view>
+      </cover-view>
+    </map>
 
     <!-- 中心红图钉 -->
     <cover-image 
@@ -379,5 +384,23 @@ const deleteMarker = (id) => {
   width: 20px; height: 2.5px;
   background-color: #ffffff;
   left: 0; top: 8.75px;
+}
+
+/* 地图来源标注 */
+.map-attribution {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  z-index: 10000;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+.attribution-text {
+  font-size: 9px;
+  color: #999;
+  line-height: 1.3;
+  white-space: nowrap;
+  font-weight: 300;
 }
 </style>

@@ -447,7 +447,7 @@ Record: id, title, content, file_url, owner_username
 ```
 最终版/
 │
-├── 📱 Bird/                              # uni-app 前端应用
+├── 📱 frontend/                          # uni-app 前端应用
 │   ├── pages/                            # 页面目录 (10+ 页面)
 │   │   ├── index/                        # 首页 - 功能导航
 │   │   ├── scan/                         # 图像识别页 - 拍照/选图
@@ -511,7 +511,8 @@ Record: id, title, content, file_url, owner_username
 │   │   │   └── 鸟类词典: 645+ 种翻译映射
 │   │   │
 │   │   ├── 🎨 视觉模型:
-│   │   │   ├── best_bird_model.pth       # ResNet50 权重 (96 MB)
+│   │   │   ├── best_bird_model.pth       # ResNet50 权重 (96 MB) - 主模型
+│   │   │   ├── bird_visual_model.pth     # 备用视觉模型 (44 MB)
 │   │   │   └── bird_classes.txt          # 499 种鸟类类别
 │   │   │
 │   │   ├── 🎵 声纹模型 (pymodel/):
@@ -519,6 +520,11 @@ Record: id, title, content, file_url, owner_username
 │   │   │   ├── models/model.pth          # 声纹模型 (28.3 MB)
 │   │   │   ├── macls/predict.py          # 推理器实现
 │   │   │   └── dataset/label_list.txt    # 162 种鸟类标签
+│   │   │
+│   │   ├── 🔧 训练工具:
+│   │   │   ├── prepare_data.py           # 数据准备脚本
+│   │   │   ├── train_visual.py           # 视觉模型训练脚本
+│   │   │   └── resume_download.py        # 断点续传下载工具
 │   │   │
 │   │   └── temp_audio.wav                # 临时音频文件 (自动清理)
 │   │
@@ -529,7 +535,7 @@ Record: id, title, content, file_url, owner_username
 │   └── README.md                         # 项目文档
 │
 └── 💡 服务启动:
-    ├── 前端: cd Bird → npm run dev
+    ├── 前端: cd frontend → npm run dev
     ├── 主后端: cd backend → python main.py (端口 8000)
     └── AI 服务: cd model/app → python server.py (端口 5000)
 ```
@@ -541,7 +547,7 @@ Record: id, title, content, file_url, owner_username
 ### 🚀 前端运行
 
 ```bash
-cd Bird
+cd frontend
 npm install
 npm run dev
 ```
@@ -825,7 +831,50 @@ aug_conf:
   }
 }
 ```
+---
 
+## 🎓 模型训练指南
+
+### 视觉模型训练
+
+**准备工作**:
+```bash
+cd model/app
+pip install -r requirements.txt
+```
+
+**数据准备**:
+```bash
+python prepare_data.py
+```
+- 自动下载并整理鸟类图像数据集
+- 支持断点续传（使用 `resume_download.py`）
+
+**开始训练**:
+```bash
+python train_visual.py
+```
+
+**训练配置**:
+- **基础模型**: ResNet50 (ImageNet 预训练)
+- **数据集**: CUB-200 + 自定义扩展
+- **优化器**: Adam (lr=0.001)
+- **批次大小**: 32
+- **训练轮数**: 100 epochs
+- **输出**: `best_bird_model.pth` (最佳权重)
+
+### 声纹模型训练
+
+**数据准备**:
+- 使用 Hugging Face 中国鸟类音频数据集
+- 采样率: 16kHz
+- 特征: 80 维梅尔频谱
+
+**训练脚本位置**: `model/app/pymodel/main.py`
+
+**配置文件**: `model/app/pymodel/configs/cam++.yml`
+
+---
 
 ## 🤝 贡献指南
 
